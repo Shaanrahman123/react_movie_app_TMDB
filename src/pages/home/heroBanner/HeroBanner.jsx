@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 
 import ContentWrapper from '../../../components/contentWrapper/ContentWrapper';
 import Img from '../../../components/lazyLoadImage/Img';
+import Spinner from "../../../components/spinner/Spinner";
 
 const HeroBanner = () => {
 
@@ -37,25 +38,31 @@ const HeroBanner = () => {
     }
 
     return (
-        <div className='heroBanner'>
-            {!loading && (<div className="backdrop-img">
-                <Img src={background} />
-            </div>)}
-
-            <div className="opacity-layer"></div>
-            <ContentWrapper>
-                <div className="heroBannerContent">
-                    <span className="title">
-                        Unlimited movies, TV shows and more</span>
-                    <span className="subTitle">Millions of movies, TV Shows and people to discover. Explore Now !</span>
-                    <div className="searchInput">
-                        <input onKeyUp={searchQueryHandler} onChange={(e) => setQuery(e.target.value)} type="text" placeholder='Seach for movie or tv show....' />
-                        <button onClick={searchClickHandler}>Search</button>
+        <>
+            {
+                loading ? (<Spinner initial={true} />)
+                    : (<div className='heroBanner'>
+                        <div className="backdrop-img">
+                            <Img src={background} />
+                        </div>
+                        <div className="opacity-layer"></div>
+                        <ContentWrapper>
+                            <div className="heroBannerContent">
+                                <span className="title">
+                                    Unlimited movies, TV shows and more</span>
+                                <span className="subTitle">Millions of movies, TV Shows and people to discover. Explore Now !</span>
+                                <div className="searchInput">
+                                    <input onKeyUp={searchQueryHandler} onChange={(e) => setQuery(e.target.value)} type="text" placeholder='Seach for movie or tv show....' />
+                                    <button onClick={searchClickHandler}>Search</button>
+                                </div>
+                            </div>
+                        </ContentWrapper>
                     </div>
-                </div>
-            </ContentWrapper>
-        </div>
+                    )
+            }
+        </>
     )
+
 }
 
 export default HeroBanner
